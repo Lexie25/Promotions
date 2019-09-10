@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.br.zup.Models.Campaign;
 
 @Repository
-public interface CampanhaRepository extends CrudRepository<Campaign,Integer>{
+public interface CampaignRepository extends CrudRepository<Campaign,Integer>{
 
 }

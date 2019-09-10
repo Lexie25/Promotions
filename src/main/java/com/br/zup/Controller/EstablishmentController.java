@@ -18,7 +18,7 @@ import com.br.zup.Models.Establishment;
 import com.br.zup.Service.EstablishmentService;
 
 @RestController
-@RequestMapping("/Establishment")
+@RequestMapping("/establishment")
 public class EstablishmentController {
 
 	@Autowired
