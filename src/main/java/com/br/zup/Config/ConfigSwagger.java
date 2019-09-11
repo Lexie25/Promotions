@@ -31,18 +31,18 @@ public class ConfigSwagger {
 				.apiInfo(apiInfo());
 	}  private ApiInfo apiInfo() {
 
-        ApiInfo apiInfo = new ApiInfo(
-                "Campanha e estabelecimento API REST",
-                "API REST de cadastro de estabelecimento e campanha",
-                "1.0",
-                "Terms of Service",
-                new Contact("Brenda ", "Lexie25",
-                        "brenda.lima@zup.com.br"),
-                "Apache License Version 2.0",
-                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
-        );
+		ApiInfo apiInfo = new ApiInfo(
+				"Campanha e estabelecimento API REST",
+				"API REST de cadastro de estabelecimento e campanha",
+				"1.0",
+				"Terms of Service",
+				new Contact("Brenda ", "Lexie25",
+						"brenda.lima@zup.com.br"),
+				"Apache License Version 2.0",
+				"https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
+				);
 
-        return apiInfo;
-    }
+		return apiInfo;
+	}
 }
 

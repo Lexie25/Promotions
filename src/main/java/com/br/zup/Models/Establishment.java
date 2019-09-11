@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 
@@ -17,12 +19,13 @@ public class Establishment  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank(message = "Name field must be completed")
-	private String name;
+	@NotBlank(message = "Name of the establishment field must be completed")
+	private String nameOfTheEstablishment;
 
 	@NotBlank(message = "Phone field needs to be completed")
 	private String telephone;
 
+	@Min(value = 14, message = "CNPJ must be at least 14 digits")
 	@NotBlank(message = "CNPJ field needs to be filled")
 	private String cnpj;
 
@@ -35,6 +38,7 @@ public class Establishment  implements Serializable{
 	@NotBlank(message = "City field needs to be completed")
 	private String city;
 
+	@Min(value = 2,message = "State must be at least 2 characters")
 	@NotBlank(message = "State field must be completed")
 	private String state;
 
@@ -53,11 +57,11 @@ public class Establishment  implements Serializable{
 	}
 
 	public String getName() {
-		return name;
+		return nameOfTheEstablishment;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nameOfTheEstablishment = name;
 	}
 
 	public String getTelephone() {

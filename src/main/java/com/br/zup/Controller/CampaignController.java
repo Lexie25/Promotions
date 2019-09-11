@@ -45,7 +45,7 @@ public class CampaignController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}	
-	
+
 	@ApiOperation(value="add a campaign")
 	@PostMapping
 	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign){

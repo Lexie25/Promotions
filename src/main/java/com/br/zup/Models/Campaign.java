@@ -16,28 +16,28 @@ public class Campaign implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank(message ="")
+	@NotBlank(message ="Campaign may not be blank")
 	private String campaignName;
-	
-	@NotBlank(message ="")
+
+	@NotBlank(message ="Store code cannot be blank")
 	private String establishmentCode;
-	
-	@NotBlank(message ="")
+
+	@NotBlank(message ="the mechanics can't be blank")
 	private String mechanics;
-	
+
 	@NotBlank(message ="")
 	private double minimumValue;
-	
+
 	@NotBlank(message ="")
 	private double maximumValue;
-	
-	@NotBlank(message ="")
+
+	@NotBlank(message ="start date cannot be blank")
 	private String startDate;
-	
-	@NotBlank(message ="")
+
+	@NotBlank(message ="description cannot be blank")
 	private String description;
-	
-	@NotBlank(message ="")
+
+	@NotBlank(message ="campaign end date must not be blank")
 	private String endDate;
 
 	@NotBlank(message ="")

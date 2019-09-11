@@ -47,6 +47,7 @@ public class EstablishmentService {
 	}
 	public long quantityOfEstablishment() {
 		return establishmentRepository.count();
+	
 	}
 }
 	
