@@ -26,14 +26,6 @@ public class CampaignController {
 	@Autowired
 	private CampaignService campaignService;
 
-	@ApiOperation(value="returns a list of campaign quantity")
-	@GetMapping("/campaign")
-	public ResponseEntity<?> getCampaign(){
-		if(campaignService.numberOfCampaign()>0) {
-			return ResponseEntity.ok(campaignService.numberOfCampaign());
-		}
-		return ResponseEntity.noContent().build();
-	}
 	@ApiOperation(value="get a campaign by Id")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getCampaign(@PathVariable int id){
@@ -49,13 +41,8 @@ public class CampaignController {
 	@ApiOperation(value="add a campaign")
 	@PostMapping
 	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign){
-		try {
 			campaignService.savecampaign(campaign);
 			return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
-		}
-		catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
 	}
 	@ApiOperation(value="update a campaign")
 	@PutMapping("/{id}")

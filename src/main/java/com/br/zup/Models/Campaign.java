@@ -1,54 +1,72 @@
 package com.br.zup.Models;
 
 import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Entity(name = "campaign")
 public class Campaign implements Serializable{
 	private final static long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="idCampaign")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@NotBlank(message ="Campaign may not be blank")
+	@Column(name="CampaignName")
 	private String campaignName;
 
+//	@OneToOne(mappedBy = "establishment")
+//    @JoinColumn(name="idEstablishment")
 	@NotBlank(message ="Store code cannot be blank")
 	private String establishmentCode;
 
 	@NotBlank(message ="the mechanics can't be blank")
+	@Column(name="mechanics")
 	private String mechanics;
 
 	@NotBlank(message ="")
+    @Min(100)
+	@Column(name="valorMinimo")
 	private double minimumValue;
 
 	@NotBlank(message ="")
+	@Column(name="id")
+	@Max(10000)
 	private double maximumValue;
 
 	@NotBlank(message ="start date cannot be blank")
+	@Column(name="startDate")
 	private String startDate;
 
 	@NotBlank(message ="description cannot be blank")
+	@Column(name="description")
 	private String description;
 
 	@NotBlank(message ="campaign end date must not be blank")
+	@Column(name="endDate")
 	private String endDate;
+	
+	@NotBlank
+	@Column
+	private double desconto;
+	
 
-	@NotBlank(message ="")
-	private long numberOfCampaign;
+//	@OneToOne(mappedBy = "campaign")
+//	private Establishment establishment;
 
 	public Campaign(Integer id, @NotBlank(message = "") String campaignName,
 			@NotBlank(message = "") String establishmentCode, @NotBlank(message = "") String mechanics,
 			@NotBlank(message = "") double minimumValue, @NotBlank(message = "") double maximumValue,
 			@NotBlank(message = "") String startDate, @NotBlank(message = "") String description,
-			@NotBlank(message = "") String endDate, @NotBlank(message = "") long numberOfCampaign) {
-		super();
+			@NotBlank(message = "") String endDate){
 		this.id = id;
 		this.campaignName = campaignName;
 		this.establishmentCode = establishmentCode;
@@ -58,7 +76,6 @@ public class Campaign implements Serializable{
 		this.startDate = startDate;
 		this.description = description;
 		this.endDate = endDate;
-		this.numberOfCampaign = numberOfCampaign;
 	}
 
 	public Integer getId() {
@@ -132,12 +149,10 @@ public class Campaign implements Serializable{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
-	public long getNumberOfCampaign() {
-		return numberOfCampaign;
-	}
-
-	public void setNumberOfCampaign(long numberOfCampaign) {
-		this.numberOfCampaign = numberOfCampaign;
-	}
+	public double desconto() {
+		if(desconto == 100) {
+			return desconto-10;
+		}
+		return desconto;
+	}	
 }

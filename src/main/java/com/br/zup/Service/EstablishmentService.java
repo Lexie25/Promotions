@@ -16,16 +16,12 @@ public class EstablishmentService {
 
 	@Autowired
 	private EstablishmentRepository establishmentRepository;
-	
-	public  Iterable<Establishment> getEstablishment() {
-		return establishmentRepository.findAll();
-	}
-	
+
 	public Establishment getEstablishmentById (int id) {
 		return establishmentRepository.findById(id).get();
 	}
-	
-	public void saveEstablishment(Establishment establishment) {
+
+	public void addEstablishment(Establishment establishment) {
 		establishmentRepository.save(establishment);
 	}
 
@@ -47,8 +43,8 @@ public class EstablishmentService {
 	}
 	public long quantityOfEstablishment() {
 		return establishmentRepository.count();
-	
+
 	}
 }
-	
+
 
