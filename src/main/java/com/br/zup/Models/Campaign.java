@@ -155,4 +155,5 @@ public class Campaign implements Serializable{
 		}
 		return desconto;
 	}	
+	
 }

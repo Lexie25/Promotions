@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity(name="establishment")
 
@@ -17,28 +17,33 @@ public class Establishment  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idEstablishment")
+	@Column(name="id")
 	private Integer id;
-	
-//	@OneToMany(mappedBy = "campaign")
-//	private Campaign campaign;
-	
-	@NotBlank(message = "Name of the establishment field must be completed")
-	@Column(name="NameOfTheEstablishment")
+
+	//	@OneToMany(mappedBy = "campaign")
+	//	private Campaign campaign;
+
+	@NotNull(message = "Name of the establishment field must be completed")
+	@Column(name="nameOfTheEstablishment")
 	private String nameOfTheEstablishment;
 
 	@NotBlank(message = "Phone field needs to be completed")
 	@Column(name="telephone")
 	private String telephone;
 
-	@Min(value = 14, message = "CNPJ must be at least 14 digits")
+
+	@Size(min = 14,max = 14, message = "CNPJ must be at least 14 digits")
 	@Column(name="cnpj")
-	@NotBlank(message = "CNPJ field needs to be filled")
 	@NotNull(message="cnpj cannot be null!")
 	private String cnpj;
-	
+
+	@Size(min = 11,max = 11, message = "CPF must be at least 14 digits")
+	@Column(name="cpf")
+	@NotBlank(message="cpf cannot be null!")
+	private String ownerCpf;
+
 	@NotNull(message="Owner name cannot be null!")
-	@Column(name="OwnerName")
+	@Column(name="ownerName")
 	@NotBlank(message = "Owner Name field must be completed")
 	private String ownerName;
 
@@ -50,7 +55,7 @@ public class Establishment  implements Serializable{
 	@Column(name="city")
 	private String city;
 
-	@Min(value = 2,message = "State must be at least 2 characters")
+	@Size(min= 2,message = "State must be at least 2 characters")
 	@Column(name="state")
 	@NotBlank(message = "State field must be completed")
 	private String state;
@@ -70,12 +75,12 @@ public class Establishment  implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getNameOfTheEstablishment() {
 		return nameOfTheEstablishment;
 	}
 
-	public void setName(String name) {
-		this.nameOfTheEstablishment = name;
+	public void setNameOfTheEstablishment(String nameOfTheEstablishment) {
+		this.nameOfTheEstablishment = nameOfTheEstablishment;
 	}
 
 	public String getTelephone() {
@@ -92,6 +97,14 @@ public class Establishment  implements Serializable{
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getOwnerCpf() {
+		return ownerCpf;
+	}
+
+	public void setOwnerCpf(String ownerCpf) {
+		this.ownerCpf = ownerCpf;
 	}
 
 	public String getOwnerName() {
@@ -133,4 +146,5 @@ public class Establishment  implements Serializable{
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
 }
