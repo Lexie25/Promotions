@@ -1,4 +1,5 @@
 package com.br.zup.Models;
+import org.hibernate.annotations.Cascade;
 import org.springframework.http.ResponseEntity;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -6,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,9 +23,10 @@ public class Establishment  implements Serializable{
 	@Column(name="id")
 	private Integer id;
 
-	//	@OneToMany(mappedBy = "campaign")
-	//	private Campaign campaign;
-
+//	@OneToMany(mappedBy = "establihsment")
+//	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+//	private Campaign campaign;
+//	
 	@NotNull(message = "Name of the establishment field must be completed")
 	@Column(name="nameOfTheEstablishment")
 	private String nameOfTheEstablishment;

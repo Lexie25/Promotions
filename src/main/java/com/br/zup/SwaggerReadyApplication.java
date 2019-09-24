@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PromotionApplication {
+public class SwaggerReadyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PromotionApplication.class, args);
+		SpringApplication.run(SwaggerReadyApplication.class, args);
 	}
 
 }

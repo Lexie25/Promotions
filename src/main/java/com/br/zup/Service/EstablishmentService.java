@@ -17,6 +17,10 @@ public class EstablishmentService {
 	@Autowired
 	private EstablishmentRepository establishmentRepository;
 
+	public Iterable<Establishment> showAllEstablishment() {
+		return establishmentRepository.findAll();
+	}
+	
 	public Establishment getEstablishmentById (int id) {
 		return establishmentRepository.findById(id).get();
 	}

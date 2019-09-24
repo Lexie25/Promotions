@@ -6,10 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import lombok.Data;
+@Data
 @Entity(name = "campaign")
 public class Campaign implements Serializable{
 	private final static long serialVersionUID = 1L;
@@ -38,7 +44,7 @@ public class Campaign implements Serializable{
 	private double minimumValue;
 
 	@NotBlank(message ="")
-	@Column(name="id")
+	@Column(name="maximumValue")
 	@Max(10000)
 	private double maximumValue;
 
@@ -55,11 +61,10 @@ public class Campaign implements Serializable{
 	private String endDate;
 	
 	@NotBlank
-	@Column
 	private double desconto;
-	
 
-//	@OneToOne(mappedBy = "campaign")
+//	@OneToOne(mappedBy = "establihsment")
+//	@Cascade(CascadeType.ALL)
 //	private Establishment establishment;
 
 	public Campaign(Integer id, @NotBlank(message = "") String campaignName,
@@ -149,11 +154,21 @@ public class Campaign implements Serializable{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	
+	public double getDesconto() {
+		return desconto;
+	}
+	
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
+	}
+
 	public double desconto() {
 		if(desconto == 100) {
 			return desconto-10;
 		}
 		return desconto;
 	}	
+	
 	
 }

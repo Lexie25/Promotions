@@ -18,7 +18,7 @@ public class CampaignService {
 	@Autowired
 	private CampaignRepository campaignRepository;
 
-	public  Iterable<Campaign> getCampaign() {
+	public  Iterable<Campaign> showAllCampaign() {
 		return campaignRepository.findAll();
 	}
 	public Campaign getCampaingById (int id) {
