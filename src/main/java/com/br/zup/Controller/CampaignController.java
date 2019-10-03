@@ -18,9 +18,10 @@ import com.br.zup.Service.CampaignService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
+import lombok.Data;
+@Data
 @Api(value="Api rest campaign")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/campaign")
 public class CampaignController {

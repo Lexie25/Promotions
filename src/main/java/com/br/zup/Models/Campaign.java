@@ -3,19 +3,19 @@ package com.br.zup.Models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+//import lombok.Data;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
-import lombok.Data;
-@Data
+//@Data
 @Entity(name = "campaign")
 public class Campaign implements Serializable{
 	private final static long serialVersionUID = 1L;
@@ -23,14 +23,16 @@ public class Campaign implements Serializable{
 	@Id
 	@Column(name="idCampaign")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
+	private Integer idCampaign;
+	
 	@NotBlank(message ="Campaign may not be blank")
 	@Column(name="CampaignName")
 	private String campaignName;
 
-//	@OneToOne(mappedBy = "establishment")
-//    @JoinColumn(name="idEstablishment")
+	@ManyToOne(fetch=FetchType.LAZY)
+	  @JoinColumn(name="idEstablishment")
+	  private Establishment establishment;
+	
 	@NotBlank(message ="Store code cannot be blank")
 	private String establishmentCode;
 
@@ -38,12 +40,12 @@ public class Campaign implements Serializable{
 	@Column(name="mechanics")
 	private String mechanics;
 
-	@NotBlank(message ="")
+	@NotNull
     @Min(100)
 	@Column(name="valorMinimo")
 	private double minimumValue;
 
-	@NotBlank(message ="")
+	@NotNull
 	@Column(name="maximumValue")
 	@Max(10000)
 	private double maximumValue;
@@ -59,36 +61,20 @@ public class Campaign implements Serializable{
 	@NotBlank(message ="campaign end date must not be blank")
 	@Column(name="endDate")
 	private String endDate;
+
+//	DescontoEnum descontoEnum = DescontoEnum.FLAT;
+//	DescontoEnum descontoEnum2 = DescontoEnum.ACIMA_DO_VALOR;
+//	DescontoEnum descontoEnum3 = DescontoEnum.BRINDE;
 	
-	@NotBlank
-	private double desconto;
-
-//	@OneToOne(mappedBy = "establihsment")
-//	@Cascade(CascadeType.ALL)
-//	private Establishment establishment;
-
-	public Campaign(Integer id, @NotBlank(message = "") String campaignName,
-			@NotBlank(message = "") String establishmentCode, @NotBlank(message = "") String mechanics,
-			@NotBlank(message = "") double minimumValue, @NotBlank(message = "") double maximumValue,
-			@NotBlank(message = "") String startDate, @NotBlank(message = "") String description,
-			@NotBlank(message = "") String endDate){
-		this.id = id;
-		this.campaignName = campaignName;
-		this.establishmentCode = establishmentCode;
-		this.mechanics = mechanics;
-		this.minimumValue = minimumValue;
-		this.maximumValue = maximumValue;
-		this.startDate = startDate;
-		this.description = description;
-		this.endDate = endDate;
+	public Campaign() {
 	}
 
 	public Integer getId() {
-		return id;
+		return idCampaign;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer idCampaign) {
+		this.idCampaign = idCampaign;
 	}
 
 	public String getCampaignName() {
@@ -155,20 +141,18 @@ public class Campaign implements Serializable{
 		this.endDate = endDate;
 	}
 	
-	public double getDesconto() {
-		return desconto;
-	}
-	
-	public void setDesconto(double desconto) {
-		this.desconto = desconto;
-	}
+//	public double getDesconto() {
+//		return desconto;
+//	}
+//	
+//	public void setDesconto(double desconto) {
+//		this.desconto = desconto;
+//	}
 
-	public double desconto() {
-		if(desconto == 100) {
-			return desconto-10;
-		}
-		return desconto;
-	}	
-	
-	
+//	public double desconto() {
+//		if(desconto == 100) {
+//			return desconto-10;
+//		}
+//		return desconto;
+//	}	
 }

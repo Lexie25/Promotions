@@ -1,14 +1,12 @@
 package com.br.zup.Models;
-import org.hibernate.annotations.Cascade;
-import org.springframework.http.ResponseEntity;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,13 +18,12 @@ public class Establishment  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private Integer id;
+	@Column(name="idEstablishment")
+	private Integer idEstablishment;
+	
+	 @OneToMany(mappedBy="establishment")
+	  private List<Campaign> campaign;
 
-//	@OneToMany(mappedBy = "establihsment")
-//	@Cascade(org.hibernate.annotations.CascadeType.ALL)
-//	private Campaign campaign;
-//	
 	@NotNull(message = "Name of the establishment field must be completed")
 	@Column(name="nameOfTheEstablishment")
 	private String nameOfTheEstablishment;
@@ -37,12 +34,12 @@ public class Establishment  implements Serializable{
 
 
 	@Size(min = 14,max = 14, message = "CNPJ must be at least 14 digits")
-	@Column(name="cnpj")
+	@Column(unique=true)
 	@NotNull(message="cnpj cannot be null!")
 	private String cnpj;
 
 	@Size(min = 11,max = 11, message = "CPF must be at least 14 digits")
-	@Column(name="cpf")
+	@Column(unique=true)
 	@NotBlank(message="cpf cannot be null!")
 	private String ownerCpf;
 
@@ -68,15 +65,19 @@ public class Establishment  implements Serializable{
 	@Column(name="country")
 	private String country;
 
+	@NotBlank(message = "Store branch cannot be blank")
+	@Column(name="branchOfTheEstablishment")
+	private String branchOfTheEstablishment;
+
 	public Establishment() {
 	}
 
 	public Integer getId() {
-		return id;
+		return idEstablishment;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer idEstablishment) {
+		this.idEstablishment = idEstablishment;
 	}
 
 	public String getNameOfTheEstablishment() {
@@ -151,4 +152,10 @@ public class Establishment  implements Serializable{
 		this.country = country;
 	}
 
+	public String getBranchOfTheEstablishment() {
+		return branchOfTheEstablishment;
+	}
+	public void setBranchOfTheEstablishment(String branchOfTheEstablishment) {
+		this.branchOfTheEstablishment = branchOfTheEstablishment;
+	}
 }
