@@ -31,7 +31,7 @@ public class EstablishmentController {
 	@Autowired
 	private EstablishmentService establishmentService;
 	
-	 @GetMapping(value = "/showEstablishment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity showAllEstablishment() {
 		return ResponseEntity.ok(establishmentService.showAllEstablishment());
 	}
@@ -47,7 +47,7 @@ public class EstablishmentController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-	@PostMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping( produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value="addEstablishment")
 	public ResponseEntity<?>addEstablishment(@Valid @RequestBody Establishment establishment){
 		try{

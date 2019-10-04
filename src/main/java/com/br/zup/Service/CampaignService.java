@@ -26,7 +26,7 @@ public class CampaignService {
 
 	}
 
-	public void savecampaign(Campaign campaign) {
+	public void saveCampaign(Campaign campaign) {
 		campaignRepository.save(campaign);
 	}
 	public void updateCampaign(int id,Campaign campaign) {

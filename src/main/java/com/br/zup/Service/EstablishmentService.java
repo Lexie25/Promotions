@@ -32,7 +32,7 @@ public class EstablishmentService {
 	public void updateEstablishment(int id,Establishment establishment) {
 		Optional<Establishment> opitonalEstablishment = establishmentRepository.findById(id);
 		if(!opitonalEstablishment.isPresent()) {
-			throw new EstablishmentNoFoundException("There are no messages with this id");
+			throw new EstablishmentNoFoundException("There is no establishment with this id");
 		}
 		establishment.setId(id);
 		establishmentRepository.save(establishment);

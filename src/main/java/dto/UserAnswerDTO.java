@@ -1,4 +1,6 @@
-package com.br.zup.Models;
+package dto;
+
+import com.br.zup.Models.UserAdmin;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,13 +13,6 @@ public class UserAnswerDTO {
 	private String nome;
 	private String email;
 	private boolean admin;
-		
-	public UserAnswerDTO(Integer id, String nome, String email, boolean admin) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.admin = admin;
-	}
 
 	public Integer getId() {
 		return id;
@@ -51,6 +46,6 @@ public class UserAnswerDTO {
 		this.admin = admin;
 	}
 	public static UserAnswerDTO transformaEmDTO(UserAdmin user) {
-		return  new UserAnswerDTO(user.getId(), user.getName(), user.getEmail(),user.getAdmin());
+		return  new UserAnswerDTO();
 }
 }

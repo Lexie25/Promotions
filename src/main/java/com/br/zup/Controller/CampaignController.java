@@ -49,7 +49,7 @@ public class CampaignController {
 	@ApiOperation(value="add a campaign")
 	@PostMapping
 	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign){
-			campaignService.savecampaign(campaign);
+			campaignService.saveCampaign(campaign);
 			return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
 	}
 	@ApiOperation(value="update a campaign")
