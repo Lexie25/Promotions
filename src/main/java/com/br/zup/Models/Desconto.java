@@ -1,11 +1,18 @@
-package com.br.zup.Models;
+ package com.br.zup.Models;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class Desconto {
+@Entity(name="campaign")
+public class Desconto implements Serializable{
+	private final static long serialVersionUID = 1L; 
 
+	@Id
+	private Integer id;
+	
 	@NotNull
 	private double minimumValue;
 	
@@ -14,7 +21,7 @@ public class Desconto {
 
 	public enum tipoDesconto {
 		
-		FLAT(),PERCENTUAL(),BRINDE();
+		FLAT,PERCENTUAL,BRINDE;
 	}
 	
 	public Desconto() {
