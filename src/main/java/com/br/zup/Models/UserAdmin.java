@@ -78,5 +78,3 @@ public class UserAdmin {
 		return new UserAdmin(id,name, email,password);
 	}
 }
-
-
