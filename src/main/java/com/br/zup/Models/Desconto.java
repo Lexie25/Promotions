@@ -18,14 +18,19 @@ public class Desconto implements Serializable{
 	
 	@NotNull
 	private double maximumValue;
+	public Desconto() {
+	}
 
 	public enum tipoDesconto {
 		
 		FLAT,PERCENTUAL,BRINDE;
 	}
-	
-	public Desconto() {
-	}
+
+    private String value;
+
+    void Category(String v) {
+        value = v;
+    }
 
 	public double getMinimumValue() {
 		return minimumValue;

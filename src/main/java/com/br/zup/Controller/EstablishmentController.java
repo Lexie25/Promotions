@@ -1,14 +1,12 @@
-package com.br.zup.Controller;
+package com.br.zup.Controller; 
+
 import org.springframework.http.ResponseEntity;
 import com.br.zup.Models.Establishment;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.br.zup.Service.EstablishmentService;
 import io.swagger.annotations.Api;
 
-@Data
 @Api(value="Api rest establishment")
 @CrossOrigin("*")
 @RestController

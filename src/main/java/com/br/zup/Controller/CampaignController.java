@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.br.zup.Models.Campaign;
 import com.br.zup.Service.CampaignService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
-@Data
+
 @Api(value="Api rest campaign")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/campaign")
 public class CampaignController {

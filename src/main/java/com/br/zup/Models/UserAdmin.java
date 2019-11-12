@@ -1,37 +1,27 @@
 package com.br.zup.Models;
 
+import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Getter
-@NoArgsConstructor
 @Entity
-public class UserAdmin {
+public class UserAdmin implements UserDetails{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank
 	private String name;
-
-	private String email;
-
-	@NotBlank
+	
 	private String password;
 
-	private boolean admin=true;
 
 	public UserAdmin(Integer id, @NotBlank String name, @Email String email, @NotBlank String password) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
 		this.password = password;
 	}
 
@@ -51,30 +41,55 @@ public class UserAdmin {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
+	
+//
+//	public String getPassword() {
+//		return password;
+//	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getPassword(){
+		return this.password;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
-	public boolean getAdmin() {
-		return admin;
-	}
-	public void setAdmin() {
-		this.admin = admin;
-	}
 	
-	public UserAdmin transformaParaObjeto(){
-		return new UserAdmin(id,name, email,password);
-	}
 }
