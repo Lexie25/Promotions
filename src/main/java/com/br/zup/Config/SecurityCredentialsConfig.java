@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.cloud.netflix.eureka.http.EurekaApplications;
-import io.swagger.models.HttpMethod;
+
+import org.springframework.http.HttpMethod;
+import com.br.zup.Config.JwtConfig;
 
 public class SecurityCredentialsConfig  extends WebSecurityConfigurerAdapter{
 
@@ -21,35 +23,35 @@ public class SecurityCredentialsConfig  extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private JwtConfig jwtConfig;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.csrf().disable()
- 	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 	
-	.and()
-	    .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)) 	
-	.and()
-	   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
-	.authorizeRequests()
-	   .antMatchers(HttpMethod.POST, jwtConfig.getUri().permit()  
-	   .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
-	   .anyRequest().authenticated()); 
-}
-	
-	
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 	
+		.and()
+		.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)) 	
+		.and()
+		.addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
+		.authorizeRequests()
+		.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+		.antMatchers("/establisment" + "/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated(); 
+	}
+
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
 	public JwtConfig jwtConfig() {
-        	return new JwtConfig();
+		return new JwtConfig();
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 }
