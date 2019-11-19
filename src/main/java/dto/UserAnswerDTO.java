@@ -1,13 +1,16 @@
 package dto;
 
+
 import com.br.zup.Models.UserAdmin;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@NoArgsConstructor
 public class UserAnswerDTO {
 	private Integer id;
 	private String nome;
