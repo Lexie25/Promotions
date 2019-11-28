@@ -29,16 +29,16 @@ public class CampaignService {
 	public void saveCampaign(Campaign campaign) {
 		campaignRepository.save(campaign);
 	}
-	public void updateCampaign(int id,Campaign campaign) {
+	public void updateCampaign(int idCampaign,Campaign campaign) {
 		
-		Optional<Campaign> opitonalCampaign = campaignRepository.findById(id);
+		Optional<Campaign> opitonalCampaign = campaignRepository.findById(idCampaign);
 		
 		if(!opitonalCampaign.isPresent()) {
 			throw new CampaignNoFoundException("There are no messages with this id");
 		
 		}
 		
-		campaign.setId(id);
+		campaign.setIdCampaign(idCampaign);
 		campaignRepository.save(campaign);
 	}
 	

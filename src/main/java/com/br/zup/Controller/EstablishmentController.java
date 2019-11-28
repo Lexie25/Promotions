@@ -20,15 +20,15 @@ import com.br.zup.Service.EstablishmentService;
 import io.swagger.annotations.Api;
 
 @Api(value="Api rest establishment")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/establishment")
 public class EstablishmentController {
 
 	@Autowired
 	private EstablishmentService establishmentService;
-	
-	 @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity showAllEstablishment() {
 		return ResponseEntity.ok(establishmentService.showAllEstablishment());
 	}

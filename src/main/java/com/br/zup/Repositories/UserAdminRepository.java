@@ -9,7 +9,6 @@ import com.br.zup.Models.UserAdmin;
 @Repository
 public interface UserAdminRepository extends CrudRepository<UserAdmin,String>{
 
-	UserAdmin findByName(String name);
 	
 	
 }

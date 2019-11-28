@@ -19,9 +19,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Api(value="Api rest campaign")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
-@RequestMapping("/campaign")
+@RequestMapping("admin/campaign")
 public class CampaignController {
 
 	@Autowired
