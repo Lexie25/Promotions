@@ -55,4 +55,14 @@ public class CampaignService {
 	public long numberOfCampaign() {
 		return campaignRepository.count();
 	}
+//	public String tipoDesconto (mechanics desconto) {
+//		if(desconto == mechanics.FLAT) {
+//			return "Desconto Flat";
+//		}else if (desconto == mechanics.PERCENTUAL) {
+//			return "Desconto Percentual ";
+//		}else if (desconto == mechanics.BRINDE) {
+//			return " Brinde ";
+//		}
+//		return tipoDesconto(desconto);
+//	}
 }

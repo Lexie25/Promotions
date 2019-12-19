@@ -3,6 +3,8 @@ package com.br.zup.Models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,11 @@ import javax.validation.constraints.NotBlank;
 //import lombok.Data;
 import javax.validation.constraints.NotNull;
 
-//@Data
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import lombok.Data;
+
+@Data
 @Entity(name = "campaign")
 public class Campaign implements Serializable{
 	private final static long serialVersionUID = 1L;
@@ -22,19 +28,36 @@ public class Campaign implements Serializable{
 	@Column(name="idCampaign")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCampaign;
-	
+
 	@NotBlank(message ="Campaign may not be blank")
 	@Column(name="CampaignName")
 	private String campaignName;
 
 	
-	  @JoinColumn(name="establishment")
-	  @ManyToOne(fetch=FetchType.LAZY)
-	  private Establishment establishment;
-	  
+	@JoinColumn(name="idEstablishment")
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Establishment establishment;
+	
+	public  Mechanics getMechanics() {
+		return mechanics;
+	}
 
-	private String establishmentCode;
+	public  void setMechanics(Mechanics mechanics) {
+		this.mechanics = mechanics;
+	}
 
+	private  Mechanics mechanics;
+	
+
+//	private String establishmentCode;
+
+
+	@Override
+	public String toString() {
+		return "Campaign [idCampaign=" + idCampaign + ", campaignName=" + campaignName + ", establishment="
+				+ establishment + ", startDate=" + startDate + ", description=" + description + ", endDate=" + endDate
+				+ ", minimumValue=" + minimumValue + ", maximumValue=" + maximumValue + "]";
+	}
 
 	@NotBlank(message ="start date cannot be blank")
 	@Column(name="startDate")
@@ -47,34 +70,53 @@ public class Campaign implements Serializable{
 	@NotBlank(message ="campaign end date must not be blank")
 	@Column(name="endDate")
 	private String endDate;
-	
+
 
 	@NotBlank(message ="campaign end date must not be blank")
-	@Column(name="mechanics")
-	private String mechanics;
-	public enum tipoDesconto {
 
-		FLAT,PERCENTUAL,BRINDE;
-
-	}
-
-	public String tipoDesco(tipoDesconto desconto) {
-		switch (desconto) {
-		case FLAT:
-			return "Desconto FLAT";
-		case PERCENTUAL:
-			return "Desconto PERCENTUAL";
-		case BRINDE:
-			return "BRINDE";
+	public enum Mechanics {
+		FLAT("Desconto FLAT"),PERCENTUAL("Desconto PERCENTUAL"),BRINDE("BRINDE");
+		private String text;
+		 Mechanics(String text) {
+			 this.text = text;
 		}
-		return null;
+		 public String getText() {
+			 return text;
+		 }
+		 @Override
+		 public String toString() {
+			 return text;
+		 }
+		 @JsonCreator
+		 public  Mechanics fromText(String text) {
+			 for (Mechanics m  : Mechanics.values()) {
+				if(m.getText().equals(text)) {
+					return m;
+				}
+			}
+			 throw new IllegalArgumentException();
+		 }
 	}
-	@NotNull
+
+	
+
+		//	public String tipoDesco(mechanics desconto) {
+		//		switch (desconto) {
+		//		case FLAT:
+		//			return "Desconto FLAT";
+		//		case PERCENTUAL:
+		//			return "Desconto PERCENTUAL";
+		//		case BRINDE:
+		//			return "BRINDE";
+		//		}
+		//		return null;
+	//}
+	
 	private double minimumValue;
 
-	@NotNull
-	private double maximumValue;
 	
+	private double maximumValue;
+
 	public Campaign() {
 	}
 
@@ -102,13 +144,13 @@ public class Campaign implements Serializable{
 		this.establishment = establishment;
 	}
 
-	public String getEstablishmentCode() {
-		return establishmentCode;
-	}
-
-	public void setEstablishmentCode(String establishmentCode) {
-		this.establishmentCode = establishmentCode;
-	}
+//	public String getEstablishmentCode() {
+//		return establishmentCode;
+//	}
+//
+//	public void setEstablishmentCode(String establishmentCode) {
+//		this.establishmentCode = establishmentCode;
+//	}
 
 	public String getStartDate() {
 		return startDate;
@@ -134,13 +176,6 @@ public class Campaign implements Serializable{
 		this.endDate = endDate;
 	}
 
-	public String getMechanics() {
-		return mechanics;
-	}
-
-	public void setMechanics(String mechanics) {
-		this.mechanics = mechanics;
-	}
 
 	public double getMinimumValue() {
 		return minimumValue;
@@ -161,5 +196,4 @@ public class Campaign implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	}
+}

@@ -13,32 +13,35 @@ public class UserAdmin {
 	private final static long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long idUser;
 
+	private boolean admin;
+	
 	private String name;
+	public UserAdmin() {
+		
+	}
 
-	private String passwords;
-
-	public UserAdmin(Integer id, @NotBlank String name, @Email String email, @NotBlank String password) {
-		this.id = id;
+	public UserAdmin(Long id, @NotBlank String name, @Email String email, @NotBlank String password) {
+		this.idUser = id;
 		this.name = name;
-		this.passwords = password;
-
-
-		if (name.equals("admin") && password == password){
-			System.out.println("Está valido");
-		}else {
-			System.out.println ("");
-		}
 	}
 
+//
+//		if (name.equals("admin") && password == password){
+//			System.out.println("Está valido");
+//		}else {
+//			System.out.println ("");
+//		}
+//	}
+//
 
-	public Integer getId() {
-		return id;
+	public Long getId() {
+		return idUser;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Long id) {
+		this.idUser = id;
 	}
 
 	public String getName() {
@@ -49,11 +52,15 @@ public class UserAdmin {
 		this.name = name;
 	}
 
-	public String getPasswords() {
-		return passwords ;
+	public boolean isAdmin() {
+		return admin;
 	}
 
-	public void setPasswords(String password) {
-		this.passwords = password;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

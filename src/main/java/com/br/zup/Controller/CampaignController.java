@@ -14,19 +14,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.br.zup.Models.Campaign;
+import com.br.zup.Models.UserAdmin;
 import com.br.zup.Service.CampaignService;
+import com.br.zup.Service.UserAdminService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Api(value="Api rest campaign")
-//@CrossOrigin("*")
 @RestController
-@RequestMapping("admin/campaign")
+@RequestMapping("/campaign")
 public class CampaignController {
 
 	@Autowired
 	private CampaignService campaignService;
-	
+	@Autowired
+	private UserAdminService userAdminService;
+
 	@GetMapping
 	public ResponseEntity showAllCampign() {
 		return ResponseEntity.ok(campaignService.showAllCampaign());
@@ -34,21 +38,26 @@ public class CampaignController {
 
 	@ApiOperation(value="get a campaign by Id")
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getCampaign(@PathVariable int id){
-		try {
-			Campaign campaign = campaignService.getCampaingById(id);
-			return ResponseEntity.ok(campaign);
-		}
-		catch(Exception e){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	public ResponseEntity<?> getCampaign(@PathVariable int id,@RequestBody UserAdmin userAdmin){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getId());
+		if(userAuthorized.isAdmin()) {
+			try {
+				Campaign campaign = campaignService.getCampaingById(id);
+				return ResponseEntity.ok(campaign);
+			}
+			catch(Exception e){
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 	}	
 
 	@ApiOperation(value="add a campaign")
 	@PostMapping
 	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign){
-			campaignService.saveCampaign(campaign);
-			return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
+		campaignService.saveCampaign(campaign);
+		return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
 	}
 	@ApiOperation(value="update a campaign")
 	@PutMapping("/{id}")

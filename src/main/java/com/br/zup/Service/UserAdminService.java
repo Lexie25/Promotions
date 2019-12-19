@@ -2,21 +2,28 @@ package com.br.zup.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.br.zup.Models.UserAdmin;
 import com.br.zup.Repositories.UserAdminRepository;
 
 @Service
 public class UserAdminService {
 
-	private final UserAdminRepository userAdminRepository;
+	@Autowired
+	private UserAdminRepository userAdminRepository;
 
-    @Autowired
-    public UserAdminService(UserAdminRepository userAdminRepository) {
-        this.userAdminRepository = userAdminRepository;
-    }
+	public  Iterable<UserAdmin> showAllUserAdmin() {
+		return userAdminRepository.findAll();
+	}
+	public UserAdmin getUserAdminById (long id) {
+		return userAdminRepository.findById(id).get();
 
-    public UserAdmin save(UserAdmin userAdmin) {
-        return userAdminRepository.save(userAdmin);
-    }
-	
+	}
+
+	public void saveUser(UserAdmin userAdmin) {
+		userAdminRepository.save(userAdmin);
+	}
+//	UserAdmin.setIdUserAdmin(idUser);
+//	userAdminRepository.save(userAdmin);
 }
+
