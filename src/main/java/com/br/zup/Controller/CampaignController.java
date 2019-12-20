@@ -39,7 +39,7 @@ public class CampaignController {
 	@ApiOperation(value="get a campaign by Id")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getCampaign(@PathVariable int id,@RequestBody UserAdmin userAdmin){
-		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getId());
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
 		if(userAuthorized.isAdmin()) {
 			try {
 				Campaign campaign = campaignService.getCampaingById(id);
@@ -55,21 +55,37 @@ public class CampaignController {
 
 	@ApiOperation(value="add a campaign")
 	@PostMapping
-	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign){
-		campaignService.saveCampaign(campaign);
-		return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
-	}
+	public ResponseEntity<?> addCamapign(@Valid @RequestBody Campaign campaign, @RequestBody UserAdmin userAdmin){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
+		if(userAuthorized.isAdmin()) {
+			campaignService.saveCampaign(campaign);
+			return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+	}	
 	@ApiOperation(value="update a campaign")
 	@PutMapping("/{id}")
-	public ResponseEntity<?>updateEstablishment(@PathVariable int id,@Valid @RequestBody Campaign campaign){
+	public ResponseEntity<?>updateEstablishment(@PathVariable int id,@Valid @RequestBody Campaign campaign,@RequestBody UserAdmin userAdmin){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
+		if(userAuthorized.isAdmin()) {
 
-		campaignService.updateCampaign(id, campaign);
-		return ResponseEntity.ok(campaign);
+			campaignService.updateCampaign(id, campaign);
+			return ResponseEntity.ok(campaign);
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 	}
+
 	@ApiOperation(value="delete a campaign")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteCampaign(@PathVariable int id){
-		campaignService.deleteCampaign(id);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<?> deleteCampaign(@PathVariable int id , @RequestBody UserAdmin userAdmin){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
+		if(userAuthorized.isAdmin()) {
+			campaignService.deleteCampaign(id);
+			return ResponseEntity.ok().build();
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 	}
 }

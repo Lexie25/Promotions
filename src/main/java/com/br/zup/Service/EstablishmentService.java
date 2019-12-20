@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.br.zup.Models.Establishment;
+import com.br.zup.Models.RegisterEstablishmentRequest;
 import com.br.zup.Repositories.EstablishmentRepository;
 import com.br.zup.exceptions.EstablishmentNoFoundException;
 
@@ -16,6 +17,11 @@ public class EstablishmentService {
 
 	@Autowired
 	private EstablishmentRepository establishmentRepository;
+	
+	public EstablishmentService (EstablishmentRepository establishmentRepository) {
+		this.establishmentRepository = establishmentRepository;
+	}
+	
 
 	public Iterable<Establishment> showAllEstablishment() {
 		return establishmentRepository.findAll();
@@ -25,8 +31,8 @@ public class EstablishmentService {
 		return establishmentRepository.findById(id).get();
 	}
 
-	public void addEstablishment(Establishment establishment) {
-		establishmentRepository.save(establishment);
+	public void addEstablishment(RegisterEstablishmentRequest registerEstablishmentRequest) {
+		establishmentRepository.save(registerEstablishmentRequest.getEstablishment());
 	}
 
 	public void updateEstablishment(int id,Establishment establishment) {
