@@ -17,7 +17,7 @@ public class Establishment  implements Serializable{
 	private final static long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="idEstablishment")
 	private Integer idEstablishment;
 	

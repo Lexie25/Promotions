@@ -1,15 +1,18 @@
 package com.br.zup.Config;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
-import springfox.documentation.builders.ApiInfoBuilder;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.context.annotation.Bean;
+
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+
+import static springfox.documentation.builders.PathSelectors.regex;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,8 @@ public class ConfigSwagger {
 	  public Docket greetingApi() {
 	    return new Docket(DocumentationType.SWAGGER_2)
 	        .select()
-	        .apis(RequestHandlerSelectors.basePackage("package Promotions"))
+	        .apis(RequestHandlerSelectors.basePackage("com.br.zup"))
+	        .paths(regex("/establishment.*"))
 	        .build()
 	        .apiInfo(metaInfo());
 
@@ -31,15 +35,14 @@ public class ConfigSwagger {
 	  private ApiInfo metaInfo() {
 	    
 		  ApiInfo apiInfo = new ApiInfo(
-	        "People API REST",
+	        "Establishment API REST",
 	        "Api for establishment registration and promotions. ",
 	        "1.0",
 	        "Terms of Service",
 	        new Contact(" Brenda Alexia", "https://github.com/lexie2510",
 	        		"brenda.lima@zup.com.br"),
 	        "Apache License Version 2.0",
-	        "http://www.apache.org/licesen.html",new ArrayList<VendorExtension>()
-	        );
+	        "http://www.apache.org/licesen.html", new ArrayList<VendorExtension>());
 		  
 		  return apiInfo;
 	  }	

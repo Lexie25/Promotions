@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(value="Api rest campaign")
 @RestController
-@RequestMapping("/campaign")
+@RequestMapping("establishment/campaign")
 public class CampaignController {
 
 	@Autowired
