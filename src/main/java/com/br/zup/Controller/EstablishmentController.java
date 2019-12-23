@@ -78,8 +78,8 @@ public class EstablishmentController {
 
 	@ApiOperation(value=" delete an establishments")
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> deleteEstablishment(@PathVariable int id, @RequestBody UserAdmin userAdmin){
-		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
+	public ResponseEntity<?> deleteEstablishment(@PathVariable int id, @RequestBody RegisterEstablishmentRequest registerEstablishmentRequest){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(registerEstablishmentRequest.user.getIdUser());
 		if(userAuthorized.isAdmin()){
 			establishmentService.deleteEstablishment(id);
 			return ResponseEntity.ok().build();
@@ -90,12 +90,12 @@ public class EstablishmentController {
 
 	@ApiOperation(value="update an establishment")
 	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?>updateEstablishment(@PathVariable int id,@Valid @RequestBody Establishment establishment, @RequestBody UserAdmin userAdmin){
-		UserAdmin userAuthorized = userAdminService.getUserAdminById(userAdmin.getIdUser());
+	public ResponseEntity<?>updateEstablishment(@PathVariable int id,@RequestBody RegisterEstablishmentRequest registerEstablishmentRequest ){
+		UserAdmin userAuthorized = userAdminService.getUserAdminById(registerEstablishmentRequest.user.getIdUser());
 		if(userAuthorized.isAdmin()){
 
-			establishmentService.updateEstablishment(id, establishment);
-			return ResponseEntity.ok(establishment);
+			establishmentService.updateEstablishment(id, registerEstablishmentRequest.establishment);
+			return ResponseEntity.ok(registerEstablishmentRequest.establishment);
 
 		}else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

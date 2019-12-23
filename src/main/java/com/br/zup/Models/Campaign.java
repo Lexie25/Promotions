@@ -1,11 +1,10 @@
 package com.br.zup.Models;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,8 +34,10 @@ public class Campaign implements Serializable{
 
 	
 	@JoinColumn(name="idEstablishment")
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade =CascadeType.ALL)
 	private Establishment establishment;
+	
+	private  Mechanics mechanics;
 	
 	public  Mechanics getMechanics() {
 		return mechanics;
@@ -46,24 +47,12 @@ public class Campaign implements Serializable{
 		this.mechanics = mechanics;
 	}
 
-	private  Mechanics mechanics;
 	
-
-//	private String establishmentCode;
-
-
-	@Override
-	public String toString() {
-		return "Campaign [idCampaign=" + idCampaign + ", campaignName=" + campaignName + ", establishment="
-				+ establishment + ", startDate=" + startDate + ", description=" + description + ", endDate=" + endDate
-				+ ", minimumValue=" + minimumValue + ", maximumValue=" + maximumValue + "]";
-	}
-
 	@NotBlank(message ="start date cannot be blank")
 	@Column(name="startDate")
 	private String startDate;
 
-	@NotBlank(message ="description cannot be blank")
+	//@NotBlank(message ="description cannot be blank")
 	@Column(name="description")
 	private String description;
 
@@ -72,45 +61,32 @@ public class Campaign implements Serializable{
 	private String endDate;
 
 
-	@NotBlank(message ="campaign end date must not be blank")
-
+	@NotNull
 	public enum Mechanics {
-		FLAT("Desconto FLAT"),PERCENTUAL("Desconto PERCENTUAL"),BRINDE("BRINDE");
-		private String text;
-		 Mechanics(String text) {
-			 this.text = text;
-		}
-		 public String getText() {
-			 return text;
-		 }
-		 @Override
-		 public String toString() {
-			 return text;
-		 }
-		 @JsonCreator
-		 public  Mechanics fromText(String text) {
-			 for (Mechanics m  : Mechanics.values()) {
-				if(m.getText().equals(text)) {
-					return m;
-				}
-			}
-			 throw new IllegalArgumentException();
-		 }
+		FLAT,PERCENTUAL,BRINDE;
+//		private String text;
+//		 Mechanics(String text) {
+//			 this.text = text;
+//		}
+//		 public String getText() {
+//			 return text;
+//		 }
+//		 @Override
+//		 public String toString() {
+//			 return text;
+//		 }
+//		 @JsonCreator
+//		 public  Mechanics fromText(String text) {
+//			 for (Mechanics mechanics  : Mechanics.values()) {
+//				if(mechanics.getText().equals(text)) {
+//					return mechanics;
+//				}
+//				System.out.println(mechanics);
+//			}
+//			 throw new IllegalArgumentException();
+//		 }
 	}
 
-	
-
-		//	public String tipoDesco(mechanics desconto) {
-		//		switch (desconto) {
-		//		case FLAT:
-		//			return "Desconto FLAT";
-		//		case PERCENTUAL:
-		//			return "Desconto PERCENTUAL";
-		//		case BRINDE:
-		//			return "BRINDE";
-		//		}
-		//		return null;
-	//}
 	
 	private double minimumValue;
 
@@ -193,7 +169,12 @@ public class Campaign implements Serializable{
 		this.maximumValue = maximumValue;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	
+	@Override
+	public String toString() {
+		return "Campaign [idCampaign=" + idCampaign + ", campaignName=" + campaignName + ", establishment="
+				+ establishment + ", startDate=" + startDate + ", description=" + description + ", endDate=" + endDate
+				+ ", minimumValue=" + minimumValue + ", maximumValue=" + maximumValue + "]";
 	}
+
 }
